@@ -788,7 +788,11 @@
 
 **视觉验收：**本地 1440px 桌面与 390px 移动端确认新增方法区为普通全宽内容段落，没有卡片嵌套或装饰性步骤；两种视口均无横向溢出、文字裁切或页面元素重叠。
 
-**状态边界：**本地修改与验证 PASS；Git、staging、production 尚未更新。正式域名部署与线上验收结果将在推送后补记。
+**预算决策：**当前继续保留首页 36 KiB HTML 上限，不为了达到 1200 至 1800 词扩写或删除有用解释。首页与支持页分开统计、同时记录原始和压缩传输体积、把 36 KiB 改为提醒线等规则，留给未来确有内容需求时的独立预算任务，本轮不扩大范围。
+
+**Git 与部署：**内容提交 `85886c6` 已推送到 `origin/main`，GitHub Actions `Validate`（run `32031155192`）PASS。Vercel production 部署 `dpl_84wgFRdVukNwecAQuxTgaQo979rw` 状态 Ready，`https://undertalesoulquiz.com`、`https://www.undertalesoulquiz.com` 与稳定 Vercel 别名均已指向该部署。
+
+**production 验收：**正式域名下首页、四个支持页、robots.txt 与 sitemap.xml 均返回 200，内部 `/content-review` 返回 404。首页实时确认新 Description、计分说明、11 条 FAQ 和 1 份 `WebSite + WebPage` JSON-LD 已生效。Chromium desktop 与 iPhone 15 WebKit 各完成一次真实线上 68 次回答；两次均正确进入 Final Check 1/2 与 2/2，生成 7 项结果与非空分享 Canvas，完成状态写入 LocalStorage，无横向溢出、console error 或 page error。正式域名 production 记为 PASS；真实物理手机仍未验收，不冒充真人验收。
 
 ## 记录模板
 
