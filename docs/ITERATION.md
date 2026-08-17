@@ -764,6 +764,14 @@
 
 **真人验收：**用户未逐项审阅完整内容；真实物理手机验收由用户明确选择 SKIPPED。两者都不冒充 PASS。
 
+## 2026-08-17 Vercel Git 部署配置修正
+
+**问题：**GitHub 仓库已连接到 `undertalesoulquiz-staging`，但 Vercel 项目仍使用 `Other` Framework Preset；因为仓库存在 `public/`，该配置会把 `public` 当作输出目录。部署列表因此仍停留在旧提交 `8dd066c`，不能证明完整 Astro 站点已发布。
+
+**修改：**新增版本化的 `vercel.json`，明确使用 `astro`、`npm run build` 和 `dist` 输出目录，使 Git 自动部署与本地构建使用同一正式产物边界。
+
+**状态边界：**本轮会推送配置提交并触发 Vercel production 部署；只有新提交构建成功且部署 URL 通过真实 HTTP 和页面检查，才能把这次 Vercel 部署记为 PASS。正式域名和 DNS 不在本轮自动修改范围内。
+
 ## 记录模板
 
 ```md
