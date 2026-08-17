@@ -18,6 +18,22 @@ const canonicalUrl = new URL(canonicalPath, Astro.site);
 const socialImageBaseUrl = import.meta.env.PUBLIC_SOCIAL_IMAGE_BASE_URL || Astro.site;
 const ogImageUrl = new URL('/og-undertale-soul-quiz.jpg', socialImageBaseUrl);
 const ogImageAlt = 'Undertale Soul Quiz with a red pixel heart and seven colored soul markers';
+const homeStructuredData = canonicalPath === '/' ? {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      url: Astro.site,
+      name: 'Undertale Soul Quiz',
+    },
+    {
+      '@type': 'WebPage',
+      url: canonicalUrl,
+      name: title,
+      description,
+    },
+  ],
+} : null;
 const footerLinks = [
   { href: '/', label: 'Home' },
   { href: '/credits', label: 'Credits' },
@@ -51,6 +67,9 @@ const footerLinks = [
     <meta name="twitter:image:alt" content={ogImageAlt} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="canonical" href={canonicalUrl} />
+    {homeStructuredData && (
+      <script is:inline type="application/ld+json" set:html={JSON.stringify(homeStructuredData)} />
+    )}
     <title>{title}</title>
   </head>
   <body id="top">

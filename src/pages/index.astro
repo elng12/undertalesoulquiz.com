@@ -4,7 +4,7 @@ import SiteLayout from '../layouts/SiteLayout.astro';
 
 <SiteLayout
   title="Undertale Soul Quiz: Find Your Primary & Secondary Virtues"
-  description="Take this Undertale Soul Test to find your primary and secondary virtues, see all seven soul traits, explore your shadow and pairing, and share your result."
+  description="Take the Undertale Soul Quiz to find your primary soul and secondary virtue, compare all seven traits, explore your shadow and pairing, and share your result."
   canonicalPath="/"
   badgeLabel="ORIGINAL FAN QUIZ"
 >
@@ -25,7 +25,7 @@ import SiteLayout from '../layouts/SiteLayout.astro';
           <div class="soul-mark soul-mark-large" aria-hidden="true"></div>
           <p class="eyebrow">UNOFFICIAL FAN PROJECT</p>
           <h1 id="page-title">Undertale Soul Quiz</h1>
-          <p class="tagline">Discover Your Soul Virtue with the Soul Virtues Extractor</p>
+          <p class="tagline">Discover Your Primary Soul and Complete Seven-Virtue Profile</p>
           <button id="start-quiz" class="primary-button" type="button">START QUIZ</button>
           <button id="start-new-quiz" class="secondary-button" type="button" hidden>START NEW QUIZ</button>
           <p class="quiz-commitment">68 responses. Progress saves automatically, and answers stay editable.</p>
@@ -161,7 +161,7 @@ import SiteLayout from '../layouts/SiteLayout.astro';
         <div class="content-inner">
           <p class="section-kicker section-heading-centered">SEVEN VIRTUES</p>
           <h2 id="souls-heading" class="section-heading-centered">The 7 Undertale Human Souls and Their Virtues</h2>
-          <p class="section-intro section-intro-centered">Every Undertale Soul Quiz result compares Determination, Bravery, Justice, Kindness, Patience, Integrity, and Perseverance together. The full seven-virtue view reveals both the qualities that lead and the quieter traits still shaping your choices.</p>
+          <p class="section-intro section-intro-centered">The quiz compares all seven virtues together instead of assigning a color from one answer. The strongest exact score becomes your Primary Soul, while every remaining percentage shows the balance behind that leading result.</p>
           <div class="soul-grid">
             <article class="soul-item soul-item-red" data-virtue="DET"><span class="soul-swatch" aria-hidden="true"></span><div><h3>Determination Soul</h3><p>Resolve, agency, and the drive to keep moving when the path becomes difficult.</p></div></article>
             <article class="soul-item soul-item-orange" data-virtue="BRV"><span class="soul-swatch" aria-hidden="true"></span><div><h3>Bravery Soul</h3><p>The willingness to act through fear and meet uncertainty directly.</p></div></article>
@@ -178,12 +178,22 @@ import SiteLayout from '../layouts/SiteLayout.astro';
         </div>
       </section>
 
+      <section id="method" class="content-band" aria-labelledby="method-heading">
+        <div class="content-inner faq-inner">
+          <p class="section-kicker">SEVEN-DIMENSION SCORING</p>
+          <h2 id="method-heading">How This Soul Quiz Scores Your Answers</h2>
+          <p class="section-intro">This fan-made test uses 66 original scored statements and two final checks. Each response applies a fixed factor across all seven virtues, so one answer can influence several dimensions.</p>
+          <p class="section-intro">After question 66, totals are normalized, curved, and ranked before display rounding. The highest exact value becomes Primary and the second-highest becomes Secondary, so visible ties can retain a stable order. The final two checks complete the 68-response flow without changing scores.</p>
+          <p class="section-intro">The interpretation and image use the same result. Shadow describes an unbalanced leading strength; directed Pairing explains how the top virtues interact. The method is consistent, but not scientifically validated. Treat it as entertainment and reflection, not diagnosis.</p>
+        </div>
+      </section>
+
       <section id="results" class="content-band content-band-light" aria-labelledby="results-heading">
         <div class="content-inner result-layout">
           <div class="result-intro">
             <p class="section-kicker">READ THE WHOLE SPREAD</p>
             <h2 id="results-heading">What Your Undertale Soul Quiz Results Mean</h2>
-            <p>Your result combines a Primary Soul, Secondary Virtue, full spread, Shadow, and directed Pairing. Each layer adds context without reducing the seven-dimensional result to one label.</p>
+            <p>Your result is a layered profile, not a fixed label. Primary and Secondary identify the two leading exact scores, while the full spread preserves every percentage. Shadow explores an overused strength, and Pairing explains how the leaders interact.</p>
           </div>
           <div class="result-points">
             <article><h3>Primary Soul</h3><p>The highest precise percentage and the leading virtue in the result.</p></article>
@@ -191,7 +201,7 @@ import SiteLayout from '../layouts/SiteLayout.astro';
             <article><h3>Full Soul Virtue Spread</h3><p>All seven percentages shown together so the balance stays visible.</p></article>
             <article><h3>Your Soul's Shadow</h3><p>An interpretation of how the leading strength can become unbalanced and how it can return to a healthier form.</p></article>
             <article><h3>Primary and Secondary Virtue Pairing</h3><p>A directed interpretation of how the two strongest virtues support, correct, and challenge each other.</p></article>
-            <article><h3>Exact Score Ranking</h3><p>The Undertale Soul Quiz ranks Primary and Secondary from exact internal percentages before rounding them for display. This keeps the order consistent when two visible percentages appear equal.</p></article>
+            <article><h3>Exact Score Ranking</h3><p>Primary and Secondary use exact percentages before display rounding, so visible ties can retain a stable order across the page and share image.</p></article>
           </div>
         </div>
       </section>
@@ -200,8 +210,8 @@ import SiteLayout from '../layouts/SiteLayout.astro';
         <div class="content-inner share-layout">
           <div>
             <p class="section-kicker">RESULTS THAT TRAVEL</p>
-            <h2 id="sharing-heading">Share Your Undertale Soul Quiz Result</h2>
-            <p class="section-intro">The Undertale Soul Quiz page and the downloadable share image use the same result model, keeping every displayed percentage consistent. The saved card includes the primary soul, secondary virtue, and complete seven-score spread, so a shared result does not lose the context shown on the page.</p>
+            <h2 id="sharing-heading">Save and Share Your Soul Result</h2>
+            <p class="section-intro">The page and downloadable image use the same seven-score profile. The card keeps both leading virtues and the complete spread, giving a shared result more context than one color.</p>
             <div class="share-points">
               <article><h3>Save Your Soul Result as an Image</h3><p>The completed card keeps the primary, secondary, and seven-score spread together.</p></article>
               <article><h3>Share Your Soul Virtues with Friends</h3><p>The result format is designed to stay readable in a post, message, or saved screenshot.</p></article>
@@ -223,12 +233,15 @@ import SiteLayout from '../layouts/SiteLayout.astro';
           <h2 id="faq-heading">Undertale Soul Quiz FAQ</h2>
           <div class="faq-list">
             <details><summary>What are the 7 human souls in Undertale?</summary><p>This quiz uses Determination, Bravery, Justice, Kindness, Patience, Integrity, and Perseverance as its seven dimensions.</p></details>
-            <details><summary>What Undertale soul am I?</summary><p>Your result is determined after all 68 responses are complete. The highest precise score becomes the primary virtue.</p></details>
+            <details><summary>What Undertale soul am I?</summary><p>After 68 responses, the highest exact score becomes Primary, the second becomes Secondary, and the full spread keeps every virtue visible.</p></details>
             <details><summary>What do the Undertale soul colors mean?</summary><p>Each color represents one virtue in this quiz, while the final spread shows how strongly all seven appear together.</p></details>
             <details><summary>What is a primary soul virtue?</summary><p>It is the highest of the seven calculated percentages, before display rounding.</p></details>
             <details><summary>What is a secondary virtue?</summary><p>It is the second-highest exact score and adds another layer to the primary result.</p></details>
-            <details><summary>What is a Soul Trait Extractor?</summary><p>It is another search phrase people use for this longer seven-virtue Undertale soul test. This Undertale Soul Quiz answers that intent on one page rather than creating a separate duplicate test.</p></details>
-            <details><summary>How does the Soul Virtues Extractor calculate my result?</summary><p>Across 66 scored prompts, answers contribute weighted values to seven virtues. Those totals are normalized, curved, and ranked after completion. The two final checks complete the 68-response flow but do not change the seven virtue scores, and saved progress lets you revisit earlier answers.</p></details>
+            <details><summary>What is a Soul Trait Extractor?</summary><p>It is another search phrase people use for this longer seven-virtue Undertale soul test. This page covers that intent directly instead of creating a separate duplicate test.</p></details>
+            <details><summary>How does the Soul Virtues Extractor calculate my result?</summary><p>Weighted virtue totals are normalized, curved, and ranked using precise percentages before display rounding.</p></details>
+            <details><summary>Why are there 68 responses but only 66 scored questions?</summary><p>Sixty-six prompts affect the scores. Two final checks complete the experience without changing the percentages.</p></details>
+            <details><summary>Can I change or resume my answers?</summary><p>Yes. Browser progress stays editable. Resetting or clearing site data removes it; no account is created.</p></details>
+            <details><summary>How should I read close or tied percentages?</summary><p>Ranking uses precise values before rounding. Close scores mean several virtues appeared with similar strength, not that an eighth soul exists.</p></details>
             <details><summary>Is this an official Undertale quiz?</summary><p>No. This is an unofficial fan project and is not affiliated with Toby Fox or the official Undertale project. Results are for entertainment and personal reflection, not scientific diagnosis or a fixed personality label.</p></details>
           </div>
         </div>

@@ -41,14 +41,42 @@ test('the home page keeps its approved SEO copy depth and metadata', async ({ pa
 
   expect(title.length).toBeGreaterThanOrEqual(55);
   expect(title.length).toBeLessThanOrEqual(60);
+  expect(description).toBe('Take the Undertale Soul Quiz to find your primary soul and secondary virtue, compare all seven traits, explore your shadow and pairing, and share your result.');
   expect(description?.length).toBeGreaterThanOrEqual(150);
   expect(description?.length).toBeLessThanOrEqual(160);
-  expect(words.length).toBeGreaterThanOrEqual(800);
-  expect(primaryPhraseCount).toBeGreaterThanOrEqual(10);
-  expect(primaryPhraseDensity).toBeGreaterThanOrEqual(0.01);
-  expect(primaryPhraseDensity).toBeLessThanOrEqual(0.015);
+  expect(words.length).toBeGreaterThanOrEqual(950);
+  expect(primaryPhraseCount).toBeGreaterThanOrEqual(4);
+  expect(primaryPhraseCount).toBeLessThanOrEqual(7);
+  expect(primaryPhraseDensity).toBeLessThan(0.01);
+  await expect(page.locator('#method')).toContainText('66 original scored statements');
+  await expect(page.locator('#method')).toContainText('not scientifically validated');
+  await expect(page.locator('#faq .faq-list details')).toHaveCount(11);
   await expect(page.locator('meta[property="og:title"]')).toHaveAttribute('content', title);
   await expect(page.locator('meta[name="twitter:title"]')).toHaveAttribute('content', title);
   await expect(page.locator('meta[property="og:description"]')).toHaveAttribute('content', description ?? '');
   await expect(page.locator('meta[name="twitter:description"]')).toHaveAttribute('content', description ?? '');
+});
+
+test('the home page exposes accurate WebSite and WebPage structured data', async ({ page }) => {
+  await page.goto('/');
+
+  const structuredData = await page.locator('script[type="application/ld+json"]').evaluate((script) => {
+    return JSON.parse(script.textContent ?? '{}') as {
+      '@context'?: string;
+      '@graph'?: Array<Record<string, unknown>>;
+    };
+  });
+  const website = structuredData['@graph']?.find((entry) => entry['@type'] === 'WebSite');
+  const webPage = structuredData['@graph']?.find((entry) => entry['@type'] === 'WebPage');
+
+  expect(structuredData['@context']).toBe('https://schema.org');
+  expect(website).toMatchObject({
+    url: 'https://undertalesoulquiz.com/',
+    name: 'Undertale Soul Quiz',
+  });
+  expect(webPage).toMatchObject({
+    url: 'https://undertalesoulquiz.com/',
+    name: 'Undertale Soul Quiz: Find Your Primary & Secondary Virtues',
+    description: 'Take the Undertale Soul Quiz to find your primary soul and secondary virtue, compare all seven traits, explore your shadow and pairing, and share your result.',
+  });
 });

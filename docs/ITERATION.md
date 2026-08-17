@@ -776,6 +776,20 @@
 
 **线上验收：**稳定别名下 `/`、`/credits`、`/privacy`、`/terms`、`/contact`、`/robots.txt`、`/sitemap.xml` 均返回 200，`/content-review` 返回 404。Chromium desktop 与 iPhone 15 WebKit 各完成一次真实线上 68 次回答：七维结果完整、Canvas 非空、LocalStorage 完成状态存在、无横向溢出、无 console/page error。Vercel production target 记为 PASS；正式域名尚未绑定，因此 `https://undertalesoulquiz.com` 仍为 PENDING，不能把 Vercel 别名 PASS 冒充自定义域名 production PASS。
 
+## 2026-08-17 首页 SEO 解释内容与结构化数据优化
+
+**目标：**落实页面体检中值得处理的细节，同时避免为了扫描器分数机械堆词或恢复已删除的 `How It Works` 卡片区块。
+
+**修改：**保留已经合格的 Title 与 H1；Meta Description 改为完整、自然地包含 `Undertale Soul Quiz`。在 Seven Virtues 与 Results 之间新增一个无卡片、无步骤装饰的语义化计分说明区，解释 66 道计分题、2 道不计分 final checks、七维共同计分、精确值排序与显示取整，以及非科学诊断边界。同步压缩和修正 Seven Virtues、Results、Sharing 与 FAQ 的重复说明，新增题量口径、恢复答案和接近分数三条 FAQ。首页只声明与真实页面类型一致的 `WebSite + WebPage` JSON-LD，不使用 `Article`、`Product`、`QAPage` 或不可保证富媒体资格的类型。
+
+**SEO 核对：**本地真实 DOM 正文为 1001 词，完整词组 `undertale soul quiz` 出现 5 次，词频约 0.50%；相比上一版 10 次，明显降低重复，同时保留 Title、Description、H1、正文开头和 FAQ 的自然覆盖。未机械扩写到通用报告建议的 1200 至 1800 词，因为当前新增内容已经解释真实方法，继续扩写会挤压固定资源预算并降低可读性。
+
+**测试状态：**最终 `npm run validate` 全套 PASS：Astro/TypeScript 50 个文件 0 问题；Vitest 11 个文件、97/97；5 页静态构建；资源预算全部 PASS；Playwright 27 PASS / 3 个按项目条件跳过。浏览器回归新增 Description、正文词数与词组频率、方法说明、11 条 FAQ 和 JSON-LD 图谱断言。
+
+**视觉验收：**本地 1440px 桌面与 390px 移动端确认新增方法区为普通全宽内容段落，没有卡片嵌套或装饰性步骤；两种视口均无横向溢出、文字裁切或页面元素重叠。
+
+**状态边界：**本地修改与验证 PASS；Git、staging、production 尚未更新。正式域名部署与线上验收结果将在推送后补记。
+
 ## 记录模板
 
 ```md
