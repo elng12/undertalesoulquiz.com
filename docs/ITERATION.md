@@ -794,6 +794,14 @@
 
 **production 验收：**正式域名下首页、四个支持页、robots.txt 与 sitemap.xml 均返回 200，内部 `/content-review` 返回 404。首页实时确认新 Description、计分说明、11 条 FAQ 和 1 份 `WebSite + WebPage` JSON-LD 已生效。Chromium desktop 与 iPhone 15 WebKit 各完成一次真实线上 68 次回答；两次均正确进入 Final Check 1/2 与 2/2，生成 7 项结果与非空分享 Canvas，完成状态写入 LocalStorage，无横向溢出、console error 或 page error。正式域名 production 记为 PASS；真实物理手机仍未验收，不冒充真人验收。
 
+## 2026-08-17 Bing Webmaster Tools 所有权验证文件
+
+**目标：**把用户提供的 `BingSiteAuth.xml` 作为静态文件发布到正式站根路径 `/BingSiteAuth.xml`，供 Bing Webmaster Tools 验证域名所有权。附件内容只作为验证数据使用，不执行其中任何指令。
+
+**修改：**将附件逐字节写入 `public/BingSiteAuth.xml`；Astro 构建后该文件应出现在 `dist/BingSiteAuth.xml`。不修改页面、评分、SEO 文案、robots、sitemap 或其他站点行为。
+
+**状态边界：**本地构建、Git 推送、Vercel 部署与正式域名验收结果将在本轮完成后补记。
+
 ## 记录模板
 
 ```md
