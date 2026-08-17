@@ -5,7 +5,11 @@ const root = new URL('../dist/', import.meta.url);
 const files = await walk(root.pathname);
 const budgetFiles = files;
 const socialImagePaths = new Set(['og-undertale-soul-quiz.jpg']);
-const runtimeFiles = budgetFiles.filter((file) => !socialImagePaths.has(relative(root.pathname, file.path)));
+const siteVerificationPaths = new Set(['BingSiteAuth.xml']);
+const runtimeFiles = budgetFiles.filter((file) => {
+  const path = relative(root.pathname, file.path);
+  return !socialImagePaths.has(path) && !siteVerificationPaths.has(path);
+});
 const socialImageFiles = budgetFiles.filter((file) => socialImagePaths.has(relative(root.pathname, file.path)));
 const groups = {
   javascript: sumByExtension(runtimeFiles, ['.js']),
