@@ -1,6 +1,6 @@
 # Golden Test Plan
 
-状态：测试设计已完成；由于真实题库、权重和预期结果尚未交付，目前不能标记 Golden Tests PASS。
+状态：`original-production-v1` 已接入；7 个普通原创参考向量、四类特殊结果正反例、不计分题隔离、权重变异检测、状态恢复和分享一致性均已进入自动化测试。本站独立原创路线的 Golden Gate 为 PASS；原站线上向量只保留为技术调查证据，不用于声称内容一致。
 
 ## 1. Golden Test 是什么
 
@@ -9,7 +9,7 @@ Golden Test 使用固定输入和经过独立确认的固定输出，防止评�
 它不同于 Mock：
 
 - Mock 可以验证程序分层是否正确；
-- Golden Test 必须来自授权数据集或参考产品的人工验收结果；
+- 授权一致性路线的 Golden Test 必须来自授权数据集或参考产品的人工验收结果；独立原创路线必须使用已批准 dataset 和独立计算/复核的预期向量；
 - 用本项目自己的算法生成预期值，再拿它测试自己，不算 Golden Test。
 
 ## 2. 参考向量格式
@@ -33,7 +33,7 @@ interface GoldenVector {
         specialId: string;
       };
   evidence: {
-    kind: 'authorized-fixture' | 'manual-reference-run';
+    kind: 'authorized-fixture' | 'independent-original-review' | 'manual-reference-run' | 'live-runtime-reference';
     capturedAt: string;
     note: string;
   };
@@ -41,6 +41,22 @@ interface GoldenVector {
 ```
 
 证据文件不得包含账号凭据、Cookie 或私密信息。
+
+### 已取得的线上参考向量
+
+2026-08-16 在隔离浏览器中调用与镜像哈希一致的线上运行时：前 66 题循环输入 `0,1,2,3,4`，后两道不计分题输入 `1,1`。
+
+| 维度 | raw | 精确百分比 | 页面显示 |
+|---|---:|---:|---:|
+| PAT | 13.12 | 77.75169275865976 | 78% |
+| INT | 8.16 | 65.57611647843527 | 66% |
+| KND | -1.2 | 44.6654627832068 | 45% |
+| JUS | -9.28 | 27.645663801029123 | 28% |
+| PER | -11.56 | 25.121529875982663 | 25% |
+| DET | -10.52 | 24.81910951073224 | 25% |
+| BRV | -16.04 | 23.074417067802656 | 23% |
+
+预期排序：`PAT, INT, KND, JUS, PER, DET, BRV`。
 
 ## 3. 必须建立的参考样例
 
@@ -56,9 +72,12 @@ interface GoldenVector {
 
 ### 特殊结果
 
-- 每个已确认特殊结果至少一个正例；
+- `all-disagree`：66 题全部为 0；
+- `all-neutral`：66 题全部为 2；
+- `all-agree`：66 题全部为 4；
+- `all-switch`：前 33 题为 0，后 33 题为 4；
+- 两道不计分题改变答案后，上述结果与普通分数都不得变化；
 - 每个特殊结果至少一个只差一步的反例；
-- 两个条件可能同时命中时的优先级样例；
 - 所有已确认导航型彩蛋的最短复现序列；
 - 普通评分不能误触发特殊结果。
 
@@ -111,7 +130,7 @@ interface GoldenVector {
 - WebKit desktop；
 - Chromium mobile emulation；
 - WebKit mobile viewport；
-- 至少一个真实 iPhone 或 Android 的真人验收，状态单独记录。
+- 真实 iPhone 或 Android 的真人验收状态单独记录；当前由用户明确选择跳过，不得记为 PASS。
 
 模拟移动端不等于真实手机验收。
 
@@ -119,20 +138,19 @@ interface GoldenVector {
 
 | 缺口 | 影响 |
 |---|---|
-| 66/68 题未统一 | 无法冻结 dataset length |
-| 精确权重缺失 | 无法生成普通评分 Golden vectors |
-| 舍入和并列未知 | Primary/Secondary 边界无法验收 |
-| 特殊触发未确认 | 无法写特殊结果正反例 |
-| 内容权限未确认 | 无法把原题和结果文案作为仓库 fixture |
+| 用户本人未逐项审阅完整内容 | Agent 内容复验 PASS 不能冒充用户本人真人验收 |
+| 真实手机验收由用户选择跳过 | Chromium/WebKit 模拟视口不能替代真实 iPhone 或 Android，状态保持 SKIPPED |
+| production 尚未部署 | 本地与 staging PASS 不能外推为 production PASS |
+| Room 未接入浏览器导航 | 纯函数有可注入 RNG 测试，但页面尚未展示该彩蛋 |
 
-因此当前状态是 **PLAN COMPLETE / GOLDEN DATA BLOCKED**，不是测试通过。
+因此当前状态是 **ORIGINAL PRODUCTION DATASET READY / GOLDEN GATE PASS / STAGING PASS / PRODUCTION ACCEPTANCE PENDING**。
 
 ## 7. Golden Gate
 
-评分实现进入 UI 集成前，必须满足：
+当前门槛结果：
 
-- 至少 7 个普通结果参考向量通过；
-- 所有已确认特殊结果正反例通过；
-- back/edit/restore 通过；
-- 页面和分享卡共享结果对象的测试通过；
-- 人为破坏 payout、某题权重或 tie-break 时，至少一个 Golden Test 会失败。
+- 7 个普通结果参考向量：PASS；
+- 四类特殊结果正反例与 unscored 隔离：PASS；
+- back/edit/restore：PASS；
+- 页面和分享卡共享结果对象：PASS；
+- 权重变异与完全并列排序检测：PASS。

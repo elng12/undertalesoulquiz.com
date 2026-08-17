@@ -1,0 +1,38 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import { CONTACT_EMAIL, CONTACT_MAILTO } from '../config/contact';
+---
+
+<SiteLayout
+  title="Contact - Undertale Soul Quiz"
+  description="Email Undertale Soul Quiz about feedback, bug reports, accessibility, or rights inquiries."
+  canonicalPath="/contact"
+>
+  <main id="main-content" class="support-main" tabindex="-1">
+    <article class="support-page">
+      <div class="support-spectrum" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <p class="support-kicker">FEEDBACK AND RIGHTS INQUIRIES</p>
+      <h1>Contact</h1>
+      <p class="support-lead">Email <a href={CONTACT_MAILTO}>{CONTACT_EMAIL}</a> about this independent fan quiz.</p>
+
+      <section class="support-section">
+        <h2>What to contact us about</h2>
+        <div class="support-columns">
+          <div><h3>Feedback</h3><p>Usability, wording, accessibility, and result-presentation feedback.</p></div>
+          <div><h3>Bug reports</h3><p>Reproducible quiz, restore, Canvas, download, or browser failures.</p></div>
+          <div><h3>Rights inquiries</h3><p>Attribution, ownership, permission, or removal requests from a rights holder.</p></div>
+        </div>
+      </section>
+
+      <section class="support-section">
+        <h2>Email</h2>
+        <p><a href={CONTACT_MAILTO}>{CONTACT_EMAIL}</a> is the public contact address for this project. There is no contact form or ticket system.</p>
+      </section>
+
+      <aside class="support-notice">
+        <strong>Do not send secrets</strong>
+        <p>Reports should never include passwords, verification codes, private keys, cookies, or other credentials.</p>
+      </aside>
+    </article>
+  </main>
+</SiteLayout>

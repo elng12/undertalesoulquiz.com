@@ -1,0 +1,255 @@
+---
+import ReviewDecision from '../components/ReviewDecision.astro';
+import SiteLayout from '../layouts/SiteLayout.astro';
+import {
+  CALIBRATION_ANSWER_LABELS,
+  ORIGINAL_CONTENT_CALIBRATION,
+} from '../data/original-content-calibration';
+import { VIRTUE_CODES } from '../quiz/types';
+import type { VirtueCode } from '../quiz/types';
+
+const content = ORIGINAL_CONTENT_CALIBRATION;
+const totalItems = content.questions.length
+  + content.virtueResults.length
+  + content.pairingSamples.length
+  + content.specialResultSamples.length;
+const virtueNames: Record<VirtueCode, string> = {
+  DET: 'Determination',
+  BRV: 'Bravery',
+  JUS: 'Justice',
+  KND: 'Kindness',
+  PAT: 'Patience',
+  INT: 'Integrity',
+  PER: 'Perseverance',
+};
+const virtueColors: Record<VirtueCode, string> = {
+  DET: '#ed3b3b',
+  BRV: '#f08c36',
+  JUS: '#f2cf46',
+  KND: '#46d695',
+  PAT: '#58d6e8',
+  INT: '#4e7af0',
+  PER: '#a46de8',
+};
+const nonZeroWeights = (weights: Record<VirtueCode, number>) => (
+  VIRTUE_CODES.filter((code) => weights[code] !== 0)
+);
+const usesDefaultLabels = (labels: readonly string[]) => (
+  labels.join('|') === CALIBRATION_ANSWER_LABELS.join('|')
+);
+---
+
+<SiteLayout
+  title="Calibration v3 Content Review - Undertale Soul Quiz"
+  description="Local content review surface for the independent-original Calibration v3 sample."
+  canonicalPath="/content-review"
+  badgeLabel="LOCAL REVIEW"
+>
+  <main id="main-content" class="review-main" tabindex="-1">
+    <header class="review-hero">
+      <div class="review-hero-copy">
+        <div class="support-spectrum" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <p class="support-kicker">INDEPENDENT ORIGINAL CONTENT</p>
+        <h1>Calibration v3 Review</h1>
+        <p>Assess the sample before any full 66+2 dataset is written. Decisions and notes stay in this browser.</p>
+      </div>
+      <div class="review-gate-panel" aria-live="polite">
+        <span id="review-gate" data-tone="pending">REVIEW PENDING</span>
+        <strong id="review-progress">0 / {totalItems} reviewed</strong>
+        <small>{content.sampleVersion}</small>
+      </div>
+    </header>
+
+    <div class="review-toolbar">
+      <div class="review-filters" role="group" aria-label="Review content filter">
+        <button type="button" data-review-filter="all" aria-pressed="true">ALL <span>{totalItems}</span></button>
+        <button type="button" data-review-filter="questions" aria-pressed="false">QUESTIONS <span>{content.questions.length}</span></button>
+        <button type="button" data-review-filter="results" aria-pressed="false">RESULTS <span>{content.virtueResults.length}</span></button>
+        <button type="button" data-review-filter="pairings" aria-pressed="false">PAIRINGS <span>{content.pairingSamples.length}</span></button>
+        <button type="button" data-review-filter="special" aria-pressed="false">SPECIAL <span>{content.specialResultSamples.length}</span></button>
+      </div>
+      <div class="review-toolbar-actions">
+        <button id="copy-review-report" class="secondary-button" type="button">COPY REPORT</button>
+        <button id="open-clear-review" class="quiet-button" type="button">CLEAR REVIEW</button>
+      </div>
+    </div>
+
+    <p id="review-status-message" class="status-message review-status-message" role="status" aria-live="polite" hidden></p>
+
+    <section class="review-section" aria-labelledby="review-questions-heading" data-review-section="questions">
+      <header class="review-section-heading">
+        <p>01 / QUESTION CALIBRATION</p>
+        <h2 id="review-questions-heading">Questions</h2>
+        <span>Check natural wording, reverse-item quality, and whether the weights match the behavior being described.</span>
+      </header>
+      <div class="review-list">
+        {content.questions.map((question) => {
+          const weights = nonZeroWeights(question.weights);
+          const label = `Question ${String(question.order).padStart(2, '0')} ${question.target}`;
+          return (
+            <article
+              class="review-item review-question"
+              data-review-id={`question:${question.id}`}
+              data-review-group="questions"
+              data-review-status="pending"
+              style={`--review-accent: ${virtueColors[question.target]}`}
+            >
+              <header class="review-item-header">
+                <div>
+                  <span>QUESTION {String(question.order).padStart(2, '0')}</span>
+                  <h3 data-review-title>{question.prompt}</h3>
+                </div>
+                <strong>{question.target} / {question.direction.toUpperCase()}</strong>
+              </header>
+              <div class="review-question-meta">
+                <div>
+                  <span class="review-field-label">WEIGHTS</span>
+                  <div class="review-weight-list">
+                    {weights.map((code) => (
+                      <span style={`--weight-color: ${virtueColors[code]}`}>
+                        <i aria-hidden="true"></i>{code} {question.weights[code] > 0 ? '+' : ''}{question.weights[code]}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <span class="review-field-label">ANSWER SCALE</span>
+                  <ol class="review-answer-scale">
+                    {question.labels.map((answer, index) => <li><span>{index + 1}</span>{answer}</li>)}
+                  </ol>
+                  {!usesDefaultLabels(question.labels) && <small class="review-custom-label">CONTEXTUAL LABELS</small>}
+                </div>
+              </div>
+              <ReviewDecision reviewId={`question-${question.id}`} label={label} />
+            </article>
+          );
+        })}
+      </div>
+    </section>
+
+    <section class="review-section" aria-labelledby="review-results-heading" data-review-section="results">
+      <header class="review-section-heading">
+        <p>02 / RESULT DEPTH</p>
+        <h2 id="review-results-heading">Primary, Shadow, and Boundary</h2>
+        <span>Check whether each virtue feels distinct, concrete, and useful without becoming a permanent identity claim.</span>
+      </header>
+      <div class="review-list">
+        {content.virtueResults.map((result) => (
+          <article
+            class="review-item review-result"
+            data-review-id={`result:${result.code}`}
+            data-review-group="results"
+            data-review-status="pending"
+            style={`--review-accent: ${virtueColors[result.code]}`}
+          >
+            <header class="review-item-header">
+              <div>
+                <span>{result.code} / PRIMARY RESULT</span>
+                <h3 data-review-title>{result.label}</h3>
+              </div>
+              <strong>{result.code}</strong>
+            </header>
+            <div class="review-copy-block">
+              <span class="review-field-label">PRIMARY</span>
+              <p>{result.summary}</p>
+            </div>
+            <div class="review-copy-columns">
+              <section>
+                <span class="review-field-label">SHADOW</span>
+                <h4>{result.shadow.heading}</h4>
+                <p>{result.shadow.body}</p>
+              </section>
+              <section>
+                <span class="review-field-label">EASILY CONFUSED WITH {result.confusedWith.code}</span>
+                <h4>{result.confusedWith.heading}</h4>
+                <p>{result.confusedWith.body}</p>
+              </section>
+            </div>
+            <ReviewDecision reviewId={`result-${result.code}`} label={`${result.label} result`} />
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="review-section" aria-labelledby="review-pairings-heading" data-review-section="pairings">
+      <header class="review-section-heading">
+        <p>03 / DIRECTIONAL COMBINATIONS</p>
+        <h2 id="review-pairings-heading">Pairings</h2>
+        <span>Check that the primary drives the interpretation, the secondary changes it, and the tension remains visible.</span>
+      </header>
+      <div class="review-list">
+        {content.pairingSamples.map((pairing) => {
+          const title = `${virtueNames[pairing.primary]} to ${virtueNames[pairing.secondary]}`;
+          return (
+            <article
+              class="review-item review-pairing"
+              data-review-id={`pairing:${pairing.primary}-${pairing.secondary}`}
+              data-review-group="pairings"
+              data-review-status="pending"
+              style={`--review-accent: ${virtueColors[pairing.primary]}`}
+            >
+              <header class="review-item-header">
+                <div>
+                  <span>{pairing.primary} PRIMARY / {pairing.secondary} SECONDARY</span>
+                  <h3 data-review-title>{pairing.heading}</h3>
+                </div>
+                <strong>{pairing.primary} -&gt; {pairing.secondary}</strong>
+              </header>
+              <div class="review-copy-block"><p>{pairing.body}</p></div>
+              <ReviewDecision reviewId={`pairing-${pairing.primary}-${pairing.secondary}`} label={title} />
+            </article>
+          );
+        })}
+      </div>
+    </section>
+
+    <section class="review-section" aria-labelledby="review-special-heading" data-review-section="special">
+      <header class="review-section-heading">
+        <p>04 / SPECIAL RESULT</p>
+        <h2 id="review-special-heading">Special Narrative</h2>
+        <span>Check the game atmosphere separately from the plain-language interpretation of the response pattern.</span>
+      </header>
+      <div class="review-list">
+        {content.specialResultSamples.map((special) => (
+          <article
+            class="review-item review-special"
+            data-review-id={`special:${special.specialId}`}
+            data-review-group="special"
+            data-review-status="pending"
+            style="--review-accent: #f2cf46"
+          >
+            <header class="review-item-header">
+              <div>
+                <span>{special.specialId.toUpperCase()}</span>
+                <h3 data-review-title>{special.heading}</h3>
+              </div>
+              <strong>SPECIAL</strong>
+            </header>
+            <div class="review-copy-block">
+              <span class="review-field-label">NARRATIVE</span>
+              <p>{special.summary}</p>
+            </div>
+            <div class="review-copy-block review-interpretation">
+              <span class="review-field-label">INTERPRETATION NOTE</span>
+              <p>{special.interpretationNote}</p>
+            </div>
+            <ReviewDecision reviewId={`special-${special.specialId}`} label={special.heading} />
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <dialog id="clear-review-dialog" class="reset-dialog" aria-labelledby="clear-review-title">
+      <h2 id="clear-review-title">Clear this content review?</h2>
+      <p>All pass, revise, and note choices saved in this browser will be removed.</p>
+      <div class="dialog-actions">
+        <form method="dialog"><button class="quiet-button" value="cancel">KEEP REVIEW</button></form>
+        <button id="confirm-clear-review" class="danger-button" type="button">CLEAR REVIEW</button>
+      </div>
+    </dialog>
+  </main>
+
+  <script>
+    import './content-review';
+  </script>
+</SiteLayout>

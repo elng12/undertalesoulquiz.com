@@ -1,0 +1,40 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import { CONTACT_EMAIL, CONTACT_MAILTO } from '../config/contact';
+---
+
+<SiteLayout
+  title="Credits - Undertale Soul Quiz"
+  description="Credits, attribution, source boundaries, and unofficial fan-project status for Undertale Soul Quiz."
+  canonicalPath="/credits"
+>
+  <main id="main-content" class="support-main" tabindex="-1">
+    <article class="support-page">
+      <div class="support-spectrum" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <p class="support-kicker">ATTRIBUTION AND PROJECT STATUS</p>
+      <h1>Credits</h1>
+      <p class="support-lead">This is an independent, unofficial fan implementation built around an Undertale-inspired soul virtue quiz.</p>
+
+      <section class="support-section">
+        <h2>Undertale</h2>
+        <p>Undertale and its original characters, world, and related intellectual property belong to Toby Fox and their respective rights holders. This website is not official and is not affiliated with or endorsed by Toby Fox.</p>
+      </section>
+
+      <section class="support-section">
+        <h2>Original reference project</h2>
+        <p>The public reference experience was created by Jaden. Visit the <a href="https://undertale.jadenthejaded.uk/" rel="external">original Undertale soul test</a>.</p>
+        <p>Attribution identifies the reference source; it does not grant permission to copy protected questions, result essays, code, logos, or exclusive artwork.</p>
+      </section>
+
+      <section class="support-section">
+        <h2>This implementation</h2>
+        <p>The scoring engine, state machine, persistence layer, interface, share-card renderer, 66 scored questions, two final checks, result summaries, Shadows, Pairings, and special-result text in this project were independently implemented or written for this site.</p>
+      </section>
+
+      <aside class="support-notice">
+        <strong>Independent-original boundary</strong>
+        <p>This build uses a complete independent-original content set. It preserves a familiar long-form quiz structure but does not claim identical questions, weights, wording, or results to the reference test. Rights inquiries can be sent to <a href={CONTACT_MAILTO}>{CONTACT_EMAIL}</a>.</p>
+      </aside>
+    </article>
+  </main>
+</SiteLayout>

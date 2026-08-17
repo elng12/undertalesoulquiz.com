@@ -1,0 +1,27 @@
+{
+  "name": "undertalesoulquiz.com",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:budget": "npm run build && npm run test:budget:built",
+    "test:budget:built": "node scripts/check-performance-budget.mjs",
+    "test:e2e": "npm run build && npm run test:e2e:built",
+    "test:e2e:built": "playwright test",
+    "validate": "npm run check && npm run test && npm run build && npm run test:budget:built && npm run test:e2e:built"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.10",
+    "@axe-core/playwright": "4.13.0",
+    "@playwright/test": "1.62.1",
+    "astro": "7.2.2",
+    "typescript": "6.0.3",
+    "vitest": "4.1.10"
+  }
+}

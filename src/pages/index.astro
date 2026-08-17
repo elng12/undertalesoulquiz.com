@@ -1,0 +1,242 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+---
+
+<SiteLayout
+  title="Undertale Soul Quiz: Find Your Primary & Secondary Virtues"
+  description="Take this Undertale Soul Test to find your primary and secondary virtues, see all seven soul traits, explore your shadow and pairing, and share your result."
+  canonicalPath="/"
+  badgeLabel="ORIGINAL FAN QUIZ"
+>
+    <main id="main-content" tabindex="-1">
+      <section id="quiz-app" class="experience-band" data-phase="landing">
+        <p id="status-message" class="status-message" role="status" aria-live="polite" hidden></p>
+
+        <div id="landing-panel" class="landing-panel" aria-labelledby="page-title">
+          <div class="soul-spectrum" aria-hidden="true">
+            <span class="soul-dot soul-red"></span>
+            <span class="soul-dot soul-orange"></span>
+            <span class="soul-dot soul-yellow"></span>
+            <span class="soul-dot soul-green"></span>
+            <span class="soul-dot soul-cyan"></span>
+            <span class="soul-dot soul-blue"></span>
+            <span class="soul-dot soul-purple"></span>
+          </div>
+          <div class="soul-mark soul-mark-large" aria-hidden="true"></div>
+          <p class="eyebrow">UNOFFICIAL FAN PROJECT</p>
+          <h1 id="page-title">Undertale Soul Quiz</h1>
+          <p class="tagline">Discover Your Soul Virtue with the Soul Virtues Extractor</p>
+          <button id="start-quiz" class="primary-button" type="button">START QUIZ</button>
+          <button id="start-new-quiz" class="secondary-button" type="button" hidden>START NEW QUIZ</button>
+          <p class="quiz-commitment">68 responses. Progress saves automatically, and answers stay editable.</p>
+          <p class="development-note">Independent-original fan quiz. Results are for entertainment, not diagnosis.</p>
+        </div>
+
+        <section id="quiz-panel" class="quiz-panel" aria-labelledby="question-heading" hidden>
+          <header class="quiz-header">
+            <p id="question-position" class="question-position">QUESTION 01 / 66</p>
+            <div
+              id="quiz-progress"
+              class="progress-track"
+              role="progressbar"
+              aria-label="Quiz progress"
+              aria-valuemin="0"
+              aria-valuenow="1"
+              aria-valuemax="66"
+            >
+              <span id="quiz-progress-fill" class="progress-fill"></span>
+            </div>
+          </header>
+
+          <div class="question-area">
+            <div class="soul-mark soul-mark-small" aria-hidden="true"></div>
+            <h2 id="question-heading" tabindex="-1">When an important plan is blocked, I use what the setback revealed to choose a workable next route.</h2>
+            <div id="answer-options" class="answer-options" role="group" aria-label="Answer choices"></div>
+          </div>
+
+          <nav class="quiz-actions" aria-label="Quiz actions">
+            <button id="back-question" class="secondary-button" type="button" hidden>BACK</button>
+            <button id="open-reset" class="quiet-button" type="button">RESET</button>
+          </nav>
+        </section>
+
+        <section id="complete-panel" class="complete-panel" aria-labelledby="complete-heading" hidden>
+          <div id="result-soul-mark" class="soul-mark soul-mark-large result-soul-mark" aria-hidden="true"></div>
+          <p id="result-eyebrow" class="eyebrow">YOUR SOUL RESULT</p>
+          <h2 id="complete-heading" tabindex="-1">Your result is ready</h2>
+
+          <div id="result-leaders" class="result-leaders">
+            <article>
+              <span>PRIMARY SOUL</span>
+              <strong id="result-primary-name"></strong>
+              <p id="result-primary-score"></p>
+            </article>
+            <article>
+              <span>SECONDARY VIRTUE</span>
+              <strong id="result-secondary-name"></strong>
+              <p id="result-secondary-score"></p>
+            </article>
+          </div>
+
+          <section class="result-quick-tools" aria-labelledby="result-share-heading">
+            <span class="result-tool-label">SAVE OR SHARE</span>
+            <h3 id="result-share-heading">Take your soul spread with you</h3>
+            <div class="result-share-actions">
+              <button id="save-result-image" class="primary-button" type="button">SAVE IMAGE</button>
+              <button id="share-result" class="secondary-button" type="button">SHARE</button>
+              <button id="copy-result" class="quiet-button" type="button">COPY RESULT</button>
+            </div>
+          </section>
+
+          <div class="complete-actions">
+            <button id="complete-back" class="secondary-button" type="button">EDIT ANSWER</button>
+            <button id="retake-quiz" class="quiet-button" type="button">START OVER</button>
+            <button id="result-home" class="quiet-button" type="button">BACK TO HOME</button>
+          </div>
+
+          <p id="result-summary" class="completion-copy"></p>
+
+          <p id="result-special-label" class="result-special-label" hidden></p>
+
+          <section id="result-spread-panel" class="result-spread-panel" aria-labelledby="result-spread-heading">
+            <h3 id="result-spread-heading">Your Full Soul Spread</h3>
+            <ol id="result-spread-list" class="result-spread-list"></ol>
+          </section>
+
+          <div id="result-depth" class="result-depth">
+            <article>
+              <span>YOUR SOUL'S SHADOW</span>
+              <h3 id="result-shadow-heading"></h3>
+              <p id="result-shadow-copy"></p>
+            </article>
+            <article>
+              <span>PRIMARY + SECONDARY</span>
+              <h3 id="result-pairing-heading"></h3>
+              <p id="result-pairing-copy"></p>
+            </article>
+          </div>
+
+          <section class="result-share-tools" aria-labelledby="result-card-heading">
+            <div>
+              <span class="result-tool-label">SHARE CARD PREVIEW</span>
+              <h3 id="result-card-heading">Your result image</h3>
+              <p>This preview uses the same scores shown above.</p>
+            </div>
+            <canvas
+              id="result-share-canvas"
+              class="result-share-canvas"
+              width="920"
+              height="1150"
+              aria-label="Share image preview for this soul result"
+            >Share image preview is unavailable in this browser.</canvas>
+          </section>
+
+          <p id="completion-count" class="completion-count">68 / 68 RESPONSES</p>
+        </section>
+
+        <dialog id="reset-dialog" class="reset-dialog" aria-labelledby="reset-title">
+          <h2 id="reset-title">Clear this progress?</h2>
+          <p>Your saved answers for this quiz will be removed.</p>
+          <div class="dialog-actions">
+            <form method="dialog">
+              <button class="quiet-button" value="cancel">KEEP PROGRESS</button>
+            </form>
+            <button id="confirm-reset" class="danger-button" type="button">CLEAR PROGRESS</button>
+          </div>
+        </dialog>
+
+        <dialog id="retake-dialog" class="reset-dialog" aria-labelledby="retake-title">
+          <h2 id="retake-title">Start this quiz over?</h2>
+          <p>All 68 saved responses and this result will be removed.</p>
+          <div class="dialog-actions">
+            <form method="dialog">
+              <button class="quiet-button" value="cancel">KEEP RESULT</button>
+            </form>
+            <button id="confirm-retake" class="danger-button" type="button">START OVER</button>
+          </div>
+        </dialog>
+      </section>
+
+      <section id="souls" class="content-band" aria-labelledby="souls-heading">
+        <div class="content-inner">
+          <p class="section-kicker section-heading-centered">SEVEN VIRTUES</p>
+          <h2 id="souls-heading" class="section-heading-centered">The 7 Undertale Human Souls and Their Virtues</h2>
+          <p class="section-intro section-intro-centered">Every Undertale Soul Quiz result compares Determination, Bravery, Justice, Kindness, Patience, Integrity, and Perseverance together. The full seven-virtue view reveals both the qualities that lead and the quieter traits still shaping your choices.</p>
+          <div class="soul-grid">
+            <article class="soul-item soul-item-red" data-virtue="DET"><span class="soul-swatch" aria-hidden="true"></span><div><h3>Determination Soul</h3><p>Resolve, agency, and the drive to keep moving when the path becomes difficult.</p></div></article>
+            <article class="soul-item soul-item-orange" data-virtue="BRV"><span class="soul-swatch" aria-hidden="true"></span><div><h3>Bravery Soul</h3><p>The willingness to act through fear and meet uncertainty directly.</p></div></article>
+            <article class="soul-item soul-item-yellow" data-virtue="JUS"><span class="soul-swatch" aria-hidden="true"></span><div><h3>Justice Soul</h3><p>A concern for fairness, accountability, and choosing what feels right.</p></div></article>
+            <article class="soul-item soul-item-green" data-virtue="KND"><span class="soul-swatch" aria-hidden="true"></span><div><h3>Kindness Soul</h3><p>Care expressed through patience, support, and attention to other people.</p></div></article>
+            <article class="soul-item soul-item-cyan" data-virtue="PAT"><span class="soul-swatch" aria-hidden="true"></span><div><h3>Patience Soul</h3><p>The capacity to pause, observe, and let the right moment arrive.</p></div></article>
+            <article class="soul-item soul-item-blue" data-virtue="INT"><span class="soul-swatch" aria-hidden="true"></span><div><h3>Integrity Soul</h3><p>Consistency between values, choices, and the person you aim to be.</p></div></article>
+            <article class="soul-item soul-item-purple" data-virtue="PER"><span class="soul-swatch" aria-hidden="true"></span><div><h3>Perseverance Soul</h3><p>Endurance that carries effort forward through setbacks and repetition.</p></div></article>
+            <article class="soul-item soul-overview-item" aria-label="Overview of the complete seven-virtue spread">
+              <span class="soul-spectrum-swatch" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+              <div><h3>Complete Soul Spread</h3><p>All seven percentages stay visible, showing how every virtue shapes your complete result.</p></div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="results" class="content-band content-band-light" aria-labelledby="results-heading">
+        <div class="content-inner result-layout">
+          <div class="result-intro">
+            <p class="section-kicker">READ THE WHOLE SPREAD</p>
+            <h2 id="results-heading">What Your Undertale Soul Quiz Results Mean</h2>
+            <p>Your result combines a Primary Soul, Secondary Virtue, full spread, Shadow, and directed Pairing. Each layer adds context without reducing the seven-dimensional result to one label.</p>
+          </div>
+          <div class="result-points">
+            <article><h3>Primary Soul</h3><p>The highest precise percentage and the leading virtue in the result.</p></article>
+            <article><h3>Secondary Virtue</h3><p>The second-highest virtue, used to add contrast and direction.</p></article>
+            <article><h3>Full Soul Virtue Spread</h3><p>All seven percentages shown together so the balance stays visible.</p></article>
+            <article><h3>Your Soul's Shadow</h3><p>An interpretation of how the leading strength can become unbalanced and how it can return to a healthier form.</p></article>
+            <article><h3>Primary and Secondary Virtue Pairing</h3><p>A directed interpretation of how the two strongest virtues support, correct, and challenge each other.</p></article>
+            <article><h3>Exact Score Ranking</h3><p>The Undertale Soul Quiz ranks Primary and Secondary from exact internal percentages before rounding them for display. This keeps the order consistent when two visible percentages appear equal.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section id="sharing" class="content-band share-band" aria-labelledby="sharing-heading">
+        <div class="content-inner share-layout">
+          <div>
+            <p class="section-kicker">RESULTS THAT TRAVEL</p>
+            <h2 id="sharing-heading">Share Your Undertale Soul Quiz Result</h2>
+            <p class="section-intro">The Undertale Soul Quiz page and the downloadable share image use the same result model, keeping every displayed percentage consistent. The saved card includes the primary soul, secondary virtue, and complete seven-score spread, so a shared result does not lose the context shown on the page.</p>
+            <div class="share-points">
+              <article><h3>Save Your Soul Result as an Image</h3><p>The completed card keeps the primary, secondary, and seven-score spread together.</p></article>
+              <article><h3>Share Your Soul Virtues with Friends</h3><p>The result format is designed to stay readable in a post, message, or saved screenshot.</p></article>
+            </div>
+          </div>
+          <div class="result-card-preview" aria-label="Preview of the original fan quiz result card format">
+            <p>SOUL RESULT</p>
+            <strong>PRIMARY</strong>
+            <span>SECONDARY VIRTUE</span>
+            <div class="preview-spectrum" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            <small>ORIGINAL FAN QUIZ</small>
+          </div>
+        </div>
+      </section>
+
+      <section id="faq" class="content-band content-band-light" aria-labelledby="faq-heading">
+        <div class="content-inner faq-inner">
+          <p class="section-kicker">COMMON QUESTIONS</p>
+          <h2 id="faq-heading">Undertale Soul Quiz FAQ</h2>
+          <div class="faq-list">
+            <details><summary>What are the 7 human souls in Undertale?</summary><p>This quiz uses Determination, Bravery, Justice, Kindness, Patience, Integrity, and Perseverance as its seven dimensions.</p></details>
+            <details><summary>What Undertale soul am I?</summary><p>Your result is determined after all 68 responses are complete. The highest precise score becomes the primary virtue.</p></details>
+            <details><summary>What do the Undertale soul colors mean?</summary><p>Each color represents one virtue in this quiz, while the final spread shows how strongly all seven appear together.</p></details>
+            <details><summary>What is a primary soul virtue?</summary><p>It is the highest of the seven calculated percentages, before display rounding.</p></details>
+            <details><summary>What is a secondary virtue?</summary><p>It is the second-highest exact score and adds another layer to the primary result.</p></details>
+            <details><summary>What is a Soul Trait Extractor?</summary><p>It is another search phrase people use for this longer seven-virtue Undertale soul test. This Undertale Soul Quiz answers that intent on one page rather than creating a separate duplicate test.</p></details>
+            <details><summary>How does the Soul Virtues Extractor calculate my result?</summary><p>Across 66 scored prompts, answers contribute weighted values to seven virtues. Those totals are normalized, curved, and ranked after completion. The two final checks complete the 68-response flow but do not change the seven virtue scores, and saved progress lets you revisit earlier answers.</p></details>
+            <details><summary>Is this an official Undertale quiz?</summary><p>No. This is an unofficial fan project and is not affiliated with Toby Fox or the official Undertale project. Results are for entertainment and personal reflection, not scientific diagnosis or a fixed personality label.</p></details>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      import { mountQuizApp } from '../quiz/browser-app';
+      mountQuizApp();
+    </script>
+</SiteLayout>

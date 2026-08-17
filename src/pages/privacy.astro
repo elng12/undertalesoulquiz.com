@@ -1,0 +1,45 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import { CONTACT_EMAIL, CONTACT_MAILTO } from '../config/contact';
+---
+
+<SiteLayout
+  title="Privacy - Undertale Soul Quiz"
+  description="How Undertale Soul Quiz handles local answers, browser storage, generated share images, and analytics."
+  canonicalPath="/privacy"
+>
+  <main id="main-content" class="support-main" tabindex="-1">
+    <article class="support-page">
+      <div class="support-spectrum" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <p class="support-kicker">BROWSER-LOCAL DATA</p>
+      <h1>Privacy</h1>
+      <p class="support-lead">This site processes quiz answers in your browser. It has no account system, application server, or database.</p>
+
+      <section class="support-section">
+        <h2>Quiz answers and LocalStorage</h2>
+        <p>Answers and progress are stored in browser LocalStorage under a project-specific key so a valid session can survive a refresh. The scoring calculation also runs locally in the browser.</p>
+        <p>Reset and Start Over remove this quiz progress. Clearing site storage in browser settings removes it as well.</p>
+      </section>
+
+      <section class="support-section">
+        <h2>Share images</h2>
+        <p>The result image is drawn locally with browser Canvas. Saving creates a PNG on your device. Native sharing hands the image or result text to your browser or operating system; this site does not upload the image.</p>
+      </section>
+
+      <section class="support-section">
+        <h2>Contact email</h2>
+        <p>This site does not collect an email address automatically or submit a contact form. If you email <a href={CONTACT_MAILTO}>{CONTACT_EMAIL}</a>, your address, message, headers, and attachments are handled by your email provider and the receiving email provider.</p>
+      </section>
+
+      <section class="support-section">
+        <h2>Analytics, cookies, and Search Console</h2>
+        <p>This source build does not include analytics, advertising, tracking cookies, or a Search Console verification tag. If measurement is added later, this page must be updated before that collection is enabled.</p>
+      </section>
+
+      <aside class="support-notice">
+        <strong>Current scope</strong>
+        <p>This statement describes the current version of the site. It must be updated before analytics, advertising, accounts, or server-side data collection are introduced.</p>
+      </aside>
+    </article>
+  </main>
+</SiteLayout>

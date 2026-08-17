@@ -1,0 +1,94 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalPath: '/' | '/credits' | '/privacy' | '/terms' | '/contact' | '/content-review';
+  badgeLabel?: string;
+}
+
+const {
+  title,
+  description,
+  canonicalPath,
+  badgeLabel = 'ORIGINAL FAN PROJECT',
+} = Astro.props;
+const canonicalUrl = new URL(canonicalPath, Astro.site);
+const socialImageBaseUrl = import.meta.env.PUBLIC_SOCIAL_IMAGE_BASE_URL || Astro.site;
+const ogImageUrl = new URL('/og-undertale-soul-quiz.jpg', socialImageBaseUrl);
+const ogImageAlt = 'Undertale Soul Quiz with a red pixel heart and seven colored soul markers';
+const footerLinks = [
+  { href: '/', label: 'Home' },
+  { href: '/credits', label: 'Credits' },
+  { href: '/privacy', label: 'Privacy' },
+  { href: '/terms', label: 'Terms' },
+  { href: '/contact', label: 'Contact' },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Undertale Soul Quiz" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={ogImageAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+    <meta name="twitter:image:alt" content={ogImageAlt} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="canonical" href={canonicalUrl} />
+    <title>{title}</title>
+  </head>
+  <body id="top">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header">
+      <a class="site-name" href="/">Undertale Soul Quiz</a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="/#souls">7 Souls</a>
+        <a href="/#results">Results</a>
+        <a href="/#faq">FAQ</a>
+      </nav>
+      <details class="mobile-nav">
+        <summary>MENU</summary>
+        <nav aria-label="Mobile navigation">
+          <a href="/#souls">7 Souls</a>
+          <a href="/#results">Results</a>
+          <a href="/#faq">FAQ</a>
+        </nav>
+      </details>
+      <span class="development-badge">{badgeLabel}</span>
+    </header>
+
+    <slot />
+
+    <footer class="site-footer">
+      <div>
+        <a class="site-name" href="/">Undertale Soul Quiz</a>
+        <p>Unofficial fan implementation. Not affiliated with Toby Fox or the official Undertale project.</p>
+      </div>
+      <nav aria-label="Footer navigation">
+        {footerLinks.map((link) => (
+          <a href={link.href} aria-current={canonicalPath === link.href ? 'page' : undefined}>
+            {link.label}
+          </a>
+        ))}
+        <a href="https://undertale.jadenthejaded.uk/" rel="external">Original test</a>
+      </nav>
+      <span>Independent fan project</span>
+    </footer>
+  </body>
+</html>

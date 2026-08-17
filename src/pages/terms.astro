@@ -1,0 +1,39 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import { CONTACT_EMAIL, CONTACT_MAILTO } from '../config/contact';
+---
+
+<SiteLayout
+  title="Terms - Undertale Soul Quiz"
+  description="Entertainment disclaimer, fan-project status, and intellectual-property boundaries for Undertale Soul Quiz."
+  canonicalPath="/terms"
+>
+  <main id="main-content" class="support-main" tabindex="-1">
+    <article class="support-page">
+      <div class="support-spectrum" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <p class="support-kicker">FAN QUIZ TERMS</p>
+      <h1>Terms</h1>
+      <p class="support-lead">Use this independent fan quiz for entertainment only.</p>
+
+      <section class="support-section">
+        <h2>Entertainment purpose</h2>
+        <p>Quiz results are fictional, interpretive, and not scientific, medical, psychological, legal, employment, or diagnostic advice. Do not use a result to make important decisions about yourself or another person.</p>
+      </section>
+
+      <section class="support-section">
+        <h2>Fan-project status</h2>
+        <p>This site is an unofficial fan implementation. It is not affiliated with, endorsed by, or sponsored by Toby Fox, Undertale, or the original reference-test creator.</p>
+      </section>
+
+      <section class="support-section">
+        <h2>Service availability</h2>
+        <p>The site may change, interrupt a session, reset incompatible local progress, or become temporarily unavailable. Keep any result image you want to retain on your own device.</p>
+      </section>
+
+      <section class="support-section">
+        <h2>Intellectual property</h2>
+        <p>Undertale-related names and intellectual property remain with their respective rights holders. Do not treat attribution on this site as permission to reuse third-party protected material. Rights holders can email <a href={CONTACT_MAILTO}>{CONTACT_EMAIL}</a> about attribution or removal requests.</p>
+      </section>
+    </article>
+  </main>
+</SiteLayout>

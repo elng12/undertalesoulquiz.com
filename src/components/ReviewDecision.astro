@@ -1,0 +1,26 @@
+---
+interface Props {
+  reviewId: string;
+  label: string;
+}
+
+const { reviewId, label } = Astro.props;
+---
+
+<footer class="review-decision">
+  <div class="review-decision-row">
+    <span class="review-status-chip" data-review-status-label>PENDING</span>
+    <div class="review-decision-actions" role="group" aria-label={`Decision for ${label}`}>
+      <button class="review-pass-button" type="button" data-review-decision="pass" aria-pressed="false">PASS</button>
+      <button class="review-revise-button" type="button" data-review-decision="revise" aria-pressed="false">REVISE</button>
+    </div>
+  </div>
+  <label class="review-note-label" for={`review-note-${reviewId}`}>Review note</label>
+  <textarea
+    id={`review-note-${reviewId}`}
+    class="review-note"
+    rows="3"
+    placeholder="Record the exact wording or boundary that needs attention."
+    data-review-note
+  ></textarea>
+</footer>
