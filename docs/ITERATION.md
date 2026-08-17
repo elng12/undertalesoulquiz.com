@@ -816,7 +816,9 @@
 
 **验证：**最终 `npm run validate` 全套 PASS：Astro/TypeScript 50 个文件 0 问题；Vitest 97/97；5 页静态构建；资源预算 PASS（CSS 23.9 KiB / 24 KiB、HTML 35.1 KiB / 36 KiB、总量 136.0 KiB / 136 KiB）；Playwright 27 PASS / 3 个按项目条件跳过。1920 x 1080 与 390 x 844 本地截图确认标题和三段正文共享同一水平中心，段落之间保留清晰留白，没有横向溢出、文字裁切或不连贯重叠。
 
-**状态边界：**本轮只修改本地首页排版、样式、浏览器回归和迭代记录；production 仍是修正前版本，未部署，不能把本地修正冒充线上已生效。
+**Git 与部署：**修正提交 `c39d234` 已推送到 `origin/main`；GitHub Actions `Validate` run `32034934077` PASS。Vercel production 部署 `dpl_HYcysN6AqzjpkuzBSsJcfkw2Pvj1` 状态 Ready，正式域名、`www`、稳定 Vercel 别名和 Git main 别名均已指向该部署。
+
+**production 验收：**`https://undertalesoulquiz.com/` 返回 HTTP 200，实时 HTML 已包含新的居中容器结构。隔离 Chromium 在 1920px 桌面和 390 x 844 移动视口分别检查 kicker、H2 与三段正文，五个元素的文本对齐均为 center，几何中心偏差均为 0；两种视口均无横向溢出、console error 或 warning。正式域名 production 记为 PASS；真实物理手机仍未验收，不冒充真人验收。
 
 ## 记录模板
 
