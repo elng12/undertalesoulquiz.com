@@ -800,7 +800,11 @@
 
 **修改：**将附件逐字节写入 `public/BingSiteAuth.xml`；Astro 构建后该文件应出现在 `dist/BingSiteAuth.xml`。不修改页面、评分、SEO 文案、robots、sitemap 或其他站点行为。
 
-**状态边界：**本地构建、Git 推送、Vercel 部署与正式域名验收结果将在本轮完成后补记。
+**验证：**XML 语法检查 PASS；`public/BingSiteAuth.xml`、`dist/BingSiteAuth.xml` 与用户附件均为 85 bytes，SHA-256 同为 `254971ac0a640ee1d578ffacd8b8fd98a995c2592eb18e2676a0e0c13764b483`。初次 CI 正确发现站点总资源会因该文件超过 136 KiB 门槛；性能脚本随后只把明确列名的 Bing 验证文件排除在页面运行时总量之外，没有提高预算，最终本地 `npm run validate` 为 Astro/TypeScript 0 问题、Vitest 97/97、5 页构建、资源预算 PASS、Playwright 27 PASS / 3 个条件跳过。
+
+**Git 与部署：**验证文件提交 `1e56914`、预算分类修正提交 `a74dbb6` 均已推送到 `origin/main`；GitHub Actions `Validate` run `32031955064` PASS。Vercel production 部署 `dpl_XP3xQHqWgJMr9bhaXLpc6L1rUGDe` 状态 Ready，并已绑定正式域名。
+
+**production 验收：**`https://undertalesoulquiz.com/BingSiteAuth.xml` 返回 HTTP 200、`Content-Type: application/xml`、长度 85 bytes，下载内容与用户附件逐字节一致；正式站首页仍返回 HTTP 200。Bing Webmaster Tools 后台是否已经接受验证尚未由本轮操作直接确认，不能把文件可访问冒充后台验证 PASS。
 
 ## 记录模板
 
