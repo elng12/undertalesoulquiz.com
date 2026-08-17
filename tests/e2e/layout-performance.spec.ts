@@ -37,6 +37,10 @@ test('the desktop content grids stay balanced without inventing an eighth virtue
         '#souls > .content-inner > .section-kicker, #souls-heading, #souls .section-intro',
         '#souls > .content-inner',
       ),
+      methodCopyCentered: centered(
+        '#method > .content-inner > p, #method-heading',
+        '#method > .content-inner',
+      ),
       resultHeadingCentered: centered('#results .result-intro > *', '#results > .content-inner'),
       horizontalOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
     };
@@ -45,6 +49,7 @@ test('the desktop content grids stay balanced without inventing an eighth virtue
   expect(layout.soulRows).toEqual([4, 4]);
   expect(layout.resultRows).toEqual([2, 2, 2]);
   expect(layout.soulHeadingCentered).toBe(true);
+  expect(layout.methodCopyCentered).toBe(true);
   expect(layout.resultHeadingCentered).toBe(true);
   expect(layout.horizontalOverflow).toBe(false);
 });
