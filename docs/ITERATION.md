@@ -772,6 +772,10 @@
 
 **状态边界：**本轮会推送配置提交并触发 Vercel production 部署；只有新提交构建成功且部署 URL 通过真实 HTTP 和页面检查，才能把这次 Vercel 部署记为 PASS。正式域名和 DNS 不在本轮自动修改范围内。
 
+**执行结果：**配置提交 `8f8d2e6` 已推送到 `origin/main`，GitHub Actions `Validate` PASS。Vercel production 部署 `dpl_EEwUpqGNcdneQ34GSKqi8LqRMnoU` 状态 Ready，稳定别名为 `https://undertalesoulquiz-staging.vercel.app`。清除 production 环境中遗留的 `PUBLIC_SOCIAL_IMAGE_BASE_URL` staging 覆盖值并重新部署后，首页 `og:image`、canonical、robots 和 sitemap 均指向 `https://undertalesoulquiz.com`。
+
+**线上验收：**稳定别名下 `/`、`/credits`、`/privacy`、`/terms`、`/contact`、`/robots.txt`、`/sitemap.xml` 均返回 200，`/content-review` 返回 404。Chromium desktop 与 iPhone 15 WebKit 各完成一次真实线上 68 次回答：七维结果完整、Canvas 非空、LocalStorage 完成状态存在、无横向溢出、无 console/page error。Vercel production target 记为 PASS；正式域名尚未绑定，因此 `https://undertalesoulquiz.com` 仍为 PENDING，不能把 Vercel 别名 PASS 冒充自定义域名 production PASS。
+
 ## 记录模板
 
 ```md
