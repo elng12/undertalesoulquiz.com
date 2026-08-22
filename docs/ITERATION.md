@@ -6,20 +6,20 @@
 
 | 字段 | 当前事实 |
 |---|---|
-| 当前阶段 | Phase 6 正式发布前审计完成，结论为 NO-GO；staging PASS 不能外推为 production PASS |
-| 当前最重要目标 | 先建立可复现的 Git/CI 发布基线，再处理 production 项目与正式域名 DNS |
-| 当前最大问题 | 远程仓库只有 7 个文档/规则文件，59 个实现文件未跟踪且没有 CI；正式域名无 A/AAAA/CNAME，Vercel 无 production 项目或域名绑定 |
-| 源码 | 首页已加载完整原创数据和 OG/Twitter 大图；Contact、Credits、Privacy、Terms 已接入公开邮箱；继续 `noindex, nofollow` |
-| Git | 本地 HEAD、`origin/main` 和远程 `main` 均为 `8dd066c`；远程仅 7 个文件，当前工作区有 6 个已跟踪文件修改和 59 个未跟踪实现文件，无 CI |
-| 测试 | `astro check` 50 文件 0 错误；Vitest 97/97 PASS；6 页构建 PASS；Playwright 21 PASS / 3 个有意跳过；运行时 129.5 KiB / 136 KiB、社交图 77.0 KiB / 100 KiB 预算 PASS |
-| staging | `https://undertalesoulquiz-staging.vercel.app` 已建立；完整流程、OG 元数据和公开联系页验收 PASS |
-| production | NO-GO：正式域名无站点 DNS 记录、Vercel 无对应项目/域名，当前构建仍硬编码 `noindex, nofollow` 与 prelaunch 文案 |
-| 真人验收 | Calibration v3 为用户委托 Codex 代验收；完整数据仍没有用户本人逐项审阅；真实物理手机验收按用户决定记为 SKIPPED，不得冒充 PASS |
-| 下次复查 | Git/CI 发布基线建立并关闭 production 构建阻塞后重新执行 GO/NO-GO |
+| 当前阶段 | 正式域名 production 已上线；Agent 404、Markdown 内容协商、`llms.txt` when-to-use 和 Organization JSON-LD 已发布并通过线上协议验收 |
+| 当前最重要目标 | 等待搜索引擎重新抓取后复查品牌名搜索；决定是否有可公开、可验证的组织地址或电话 |
+| 当前最大问题 | 当前搜索结果仍未发现 `undertalesoulquiz.com`；项目没有已确认的公开 PostalAddress 或电话，不能为扫描器分数编造 NAP |
+| 源码 | 五个正式页面可按 `Accept` 返回 HTML 或 Markdown；缺失路径有 HTML/Markdown 404 恢复入口；根目录提供 `llms.txt`；首页有 Organization + email ContactPoint |
+| Git | Agent readiness 实现提交 `41d2f5c` 已在本地 `main`、`origin/main` 和远程 `main`；GitHub Actions Validate run `32597166241` PASS |
+| 测试 | `astro check` 55 文件 0 问题；middleware 独立 TypeScript 检查 PASS；Vitest 116/116 PASS；6 页构建 PASS；Playwright 31 PASS / 3 个条件跳过；全部资源预算 PASS |
+| staging | Vercel preview 已验证 HTML/Markdown、q-values、406、404、`Vary`、`llms.txt`、Organization 和所有公开静态资源 |
+| production | 部署 `dpl_yZia8yeyjTYZ4ofxjZmPhKBk5v2E` Ready；正式域名、`www` 和稳定别名均指向该 Git 部署；所有公开端点线上 PASS |
+| 真人验收 | 新 404 已做 1280 x 900 与 390 x 844 截图检查且无横向溢出；真实物理手机仍为 SKIPPED，不冒充真人验收 |
+| 下次复查 | 搜索索引有传播时间；复查 exact-brand 与 `site:` 查询，并在用户提供真实公开地址/电话后再补 Organization address/telephone |
 
 ## 当前唯一下一步
 
-建立可复现的 Git/CI 发布基线：审阅当前 65 个待纳入改动，新增运行 `npm run validate` 的 CI，形成 scoped commit 并推送。完成前不创建 production、不改 DNS、不解除 `noindex`。
+等待搜索引擎重新抓取后复查 `"Undertale Soul Quiz"` 和 `site:undertalesoulquiz.com`；不要用虚假外链、地址或电话换扫描器分数。
 
 ## 2026-08-16 技术调查与计划
 
@@ -819,6 +819,26 @@
 **Git 与部署：**修正提交 `c39d234` 已推送到 `origin/main`；GitHub Actions `Validate` run `32034934077` PASS。Vercel production 部署 `dpl_HYcysN6AqzjpkuzBSsJcfkw2Pvj1` 状态 Ready，正式域名、`www`、稳定 Vercel 别名和 Git main 别名均已指向该部署。
 
 **production 验收：**`https://undertalesoulquiz.com/` 返回 HTTP 200，实时 HTML 已包含新的居中容器结构。隔离 Chromium 在 1920px 桌面和 390 x 844 移动视口分别检查 kicker、H2 与三段正文，五个元素的文本对齐均为 center，几何中心偏差均为 0；两种视口均无横向溢出、console error 或 warning。正式域名 production 记为 PASS；真实物理手机仍未验收，不冒充真人验收。
+
+## 2026-08-23 Agent readiness 协议修复与 production 验收
+
+**问题：**Ora / Is Agentic 证据显示 agent-friendly 404 只有部分分、`Accept: text/markdown` 内容协商失败、品牌名搜索未出现正式域名、缺少明确的 when-to-use 指引，且首页 JSON-LD 没有 Organization。
+
+**事实核对：**修改前正式域名五个页面都返回 HTML 且没有 `Vary: Accept`；不存在路径已经是 HTTP 404，但使用 Vercel 的通用短文本；`/llms.txt` 返回 404；首页只有 WebSite + WebPage。实时搜索再次确认 exact-brand 和 `site:` 结果仍未出现正式域名。
+
+**修改：**新增 Vercel Routing Middleware，严格解析 `Accept` 的 q-value、specificity、显式 `q=0` 与客户端顺序；五个正式页面在同一 canonical URL 上返回 UTF-8 Markdown，HTML 保持原样，不可满足时返回 406，并统一输出 `Vary: Accept, Accept-Encoding`。新增带首页、`llms.txt` 和 sitemap 恢复入口的自定义 404；Markdown 请求的缺失路径同样返回带恢复地图的 HTTP 404。新增符合 llmstxt.org 顺序的根目录 `llms.txt`，明确 when-to-use、when-not-to-use、调用方式和绝对链接。首页 JSON-LD 增加 Organization、统一品牌名/域名别名和带真实公开邮箱的 ContactPoint。没有编造 PostalAddress 或电话。
+
+**平台修正：**预览验证发现 Vercel Routing Middleware 直接响应 HEAD 时会去掉 `Content-Type`。`vercel.json` 因此为五个公开页面的精确 `Accept: text/markdown` HEAD 请求补回 `text/markdown; charset=utf-8`，而 q-value 组合仍由 middleware 选择，避免把 HTML 优先请求误标为 Markdown。
+
+**测试：**最终 `npm run validate` PASS：Astro 55 文件 0 问题；middleware NodeNext TypeScript 检查 PASS；Vitest 13 文件、116/116 PASS；6 页构建 PASS；Playwright 31 PASS / 3 个条件跳过。预算 PASS：JS 76.3 KiB / 80 KiB、CSS 23.9 KiB / 24 KiB、HTML 35.3 KiB / 36 KiB、agent 6.4 KiB / 12 KiB、运行时总量 135.7 KiB / 136 KiB。GitHub Actions Validate run `32597166241` PASS。
+
+**视觉验收：**自定义 404 在 1280 x 900 和 390 x 844 下截图检查通过；两种视口 `scrollWidth === innerWidth`，三条恢复链接可见，没有裁切、重叠或横向溢出。
+
+**Git 与部署：**实现提交 `41d2f5c` 已推送到 `origin/main`。Vercel Git production 部署 `dpl_yZia8yeyjTYZ4ofxjZmPhKBk5v2E` Ready，正式域名、`www`、稳定别名和 Git main 别名均指向该部署。
+
+**production 协议验收：**`/`、`/credits`、`/privacy`、`/terms`、`/contact` 的 HTML 与 Markdown 请求均为 200；Markdown 为 `text/markdown; charset=utf-8` 且 `Vary` 同时含 Accept 和 Accept-Encoding。Markdown 优先、HTML 优先和 Markdown `q=0` 三组选择正确；`application/pdf` 返回 406。普通与 Markdown 缺失路径均返回 404；`llms.txt`、robots、sitemap、Bing 验证文件和 OG 图片均返回 200 且媒体类型正确。项目推荐的 HEAD 检查和 404 status-only curl 均通过。
+
+**剩余边界：**品牌搜索属于索引和站外信号，刚发布的结构化信号不能让搜索结果即时变化；当前仍为 FAIL，不冒充修复完成。Organization 已从“完全缺失”修到真实 name/url/contactPoint，但完整 PostalAddress/telephone 仍 UNKNOWN，需要用户提供可公开事实。未创建虚假 NAP、新闻稿、目录页或外链。
 
 ## 记录模板
 
