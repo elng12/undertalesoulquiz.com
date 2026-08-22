@@ -13,7 +13,7 @@
 | Git | Agent readiness 实现提交 `41d2f5c` 已在本地 `main`、`origin/main` 和远程 `main`；GitHub Actions Validate run `32597166241` PASS |
 | 测试 | `astro check` 55 文件 0 问题；middleware 独立 TypeScript 检查 PASS；Vitest 116/116 PASS；6 页构建 PASS；Playwright 31 PASS / 3 个条件跳过；全部资源预算 PASS |
 | staging | Vercel preview 已验证 HTML/Markdown、q-values、406、404、`Vary`、`llms.txt`、Organization 和所有公开静态资源 |
-| production | 部署 `dpl_yZia8yeyjTYZ4ofxjZmPhKBk5v2E` Ready；正式域名、`www` 和稳定别名均指向该 Git 部署；所有公开端点线上 PASS |
+| production | 最新 Git main production Ready；正式域名、`www` 和稳定别名均指向当前 main 部署；Agent readiness 实现部署与所有公开端点线上 PASS |
 | 真人验收 | 新 404 已做 1280 x 900 与 390 x 844 截图检查且无横向溢出；真实物理手机仍为 SKIPPED，不冒充真人验收 |
 | 下次复查 | 搜索索引有传播时间；复查 exact-brand 与 `site:` 查询，并在用户提供真实公开地址/电话后再补 Organization address/telephone |
 
