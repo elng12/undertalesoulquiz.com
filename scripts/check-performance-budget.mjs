@@ -6,11 +6,15 @@ const files = await walk(root.pathname);
 const budgetFiles = files;
 const socialImagePaths = new Set(['og-undertale-soul-quiz.jpg']);
 const siteVerificationPaths = new Set(['BingSiteAuth.xml']);
+const agentReadinessPaths = new Set(['404.html', 'llms.txt', 'robots.txt', 'sitemap.xml']);
 const runtimeFiles = budgetFiles.filter((file) => {
   const path = relative(root.pathname, file.path);
-  return !socialImagePaths.has(path) && !siteVerificationPaths.has(path);
+  return !socialImagePaths.has(path)
+    && !siteVerificationPaths.has(path)
+    && !agentReadinessPaths.has(path);
 });
 const socialImageFiles = budgetFiles.filter((file) => socialImagePaths.has(relative(root.pathname, file.path)));
+const agentReadinessFiles = budgetFiles.filter((file) => agentReadinessPaths.has(relative(root.pathname, file.path)));
 const groups = {
   javascript: sumByExtension(runtimeFiles, ['.js']),
   css: sumByExtension(runtimeFiles, ['.css']),
@@ -18,6 +22,7 @@ const groups = {
   images: sumByExtension(runtimeFiles, ['.avif', '.gif', '.jpg', '.jpeg', '.png', '.svg', '.webp']),
   fonts: sumByExtension(runtimeFiles, ['.otf', '.ttf', '.woff', '.woff2']),
   social: socialImageFiles.reduce((sum, file) => sum + file.size, 0),
+  agent: agentReadinessFiles.reduce((sum, file) => sum + file.size, 0),
   total: runtimeFiles.reduce((sum, file) => sum + file.size, 0),
 };
 
@@ -28,6 +33,7 @@ const budgets = {
   images: 100 * 1024,
   fonts: 100 * 1024,
   social: 100 * 1024,
+  agent: 12 * 1024,
   total: 136 * 1024,
 };
 

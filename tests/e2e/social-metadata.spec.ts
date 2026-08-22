@@ -57,7 +57,7 @@ test('the home page keeps its approved SEO copy depth and metadata', async ({ pa
   await expect(page.locator('meta[name="twitter:description"]')).toHaveAttribute('content', description ?? '');
 });
 
-test('the home page exposes accurate WebSite and WebPage structured data', async ({ page }) => {
+test('the home page exposes accurate site, page, and organization structured data', async ({ page }) => {
   await page.goto('/');
 
   const structuredData = await page.locator('script[type="application/ld+json"]').evaluate((script) => {
@@ -68,6 +68,7 @@ test('the home page exposes accurate WebSite and WebPage structured data', async
   });
   const website = structuredData['@graph']?.find((entry) => entry['@type'] === 'WebSite');
   const webPage = structuredData['@graph']?.find((entry) => entry['@type'] === 'WebPage');
+  const organization = structuredData['@graph']?.find((entry) => entry['@type'] === 'Organization');
 
   expect(structuredData['@context']).toBe('https://schema.org');
   expect(website).toMatchObject({
@@ -78,5 +79,15 @@ test('the home page exposes accurate WebSite and WebPage structured data', async
     url: 'https://undertalesoulquiz.com/',
     name: 'Undertale Soul Quiz: Find Your Primary & Secondary Virtues',
     description: 'Take the Undertale Soul Quiz to find your primary soul and secondary virtue, compare all seven traits, explore your shadow and pairing, and share your result.',
+  });
+  expect(organization).toMatchObject({
+    name: 'Undertale Soul Quiz',
+    alternateName: 'UndertaleSoulQuiz.com',
+    url: 'https://undertalesoulquiz.com/',
+    contactPoint: {
+      '@type': 'ContactPoint',
+      contactType: 'website feedback and rights inquiries',
+      email: '2296744453m@gmail.com',
+    },
   });
 });

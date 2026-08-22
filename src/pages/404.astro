@@ -1,0 +1,28 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+---
+
+<SiteLayout
+  title="Page Not Found - Undertale Soul Quiz"
+  description="This path does not exist. Return to the Undertale Soul Quiz or use its machine-readable site indexes."
+  canonicalPath="/404"
+  indexable={false}
+>
+  <main id="main-content" class="support-main" tabindex="-1">
+    <article class="support-page">
+      <div class="support-spectrum" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <p class="support-kicker">HTTP 404</p>
+      <h1>Page not found</h1>
+      <p class="support-lead">That path does not exist on Undertale Soul Quiz.</p>
+
+      <section class="support-section">
+        <h2>Where to look next</h2>
+        <div class="support-columns">
+          <div><h3>Quiz</h3><p><a href="/">Return to the homepage</a> to start or resume the interactive quiz.</p></div>
+          <div><h3>Agent index</h3><p><a href="/llms.txt">Read llms.txt</a> for use cases, source boundaries, and public page links.</p></div>
+          <div><h3>Site map</h3><p><a href="/sitemap.xml">Open sitemap.xml</a> for the canonical public URL list.</p></div>
+        </div>
+      </section>
+    </article>
+  </main>
+</SiteLayout>

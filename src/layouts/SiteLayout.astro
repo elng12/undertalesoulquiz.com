@@ -1,11 +1,13 @@
 ---
 import '../styles/global.css';
+import { CONTACT_EMAIL } from '../config/contact';
 
 interface Props {
   title: string;
   description: string;
-  canonicalPath: '/' | '/credits' | '/privacy' | '/terms' | '/contact' | '/content-review';
+  canonicalPath: '/' | '/credits' | '/privacy' | '/terms' | '/contact' | '/content-review' | '/404';
   badgeLabel?: string;
+  indexable?: boolean;
 }
 
 const {
@@ -13,6 +15,7 @@ const {
   description,
   canonicalPath,
   badgeLabel = 'ORIGINAL FAN PROJECT',
+  indexable = true,
 } = Astro.props;
 const canonicalUrl = new URL(canonicalPath, Astro.site);
 const socialImageBaseUrl = import.meta.env.PUBLIC_SOCIAL_IMAGE_BASE_URL || Astro.site;
@@ -32,6 +35,17 @@ const homeStructuredData = canonicalPath === '/' ? {
       name: title,
       description,
     },
+    {
+      '@type': 'Organization',
+      name: 'Undertale Soul Quiz',
+      alternateName: 'UndertaleSoulQuiz.com',
+      url: Astro.site,
+      contactPoint: {
+        '@type': 'ContactPoint',
+        contactType: 'website feedback and rights inquiries',
+        email: CONTACT_EMAIL,
+      },
+    },
   ],
 } : null;
 const footerLinks = [
@@ -49,7 +63,7 @@ const footerLinks = [
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content={indexable ? 'index, follow' : 'noindex, follow'} />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Undertale Soul Quiz" />
     <meta property="og:title" content={title} />
@@ -66,7 +80,7 @@ const footerLinks = [
     <meta name="twitter:image" content={ogImageUrl} />
     <meta name="twitter:image:alt" content={ogImageAlt} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="canonical" href={canonicalUrl} />
+    {indexable && <link rel="canonical" href={canonicalUrl} />}
     {homeStructuredData && (
       <script is:inline type="application/ld+json" set:html={JSON.stringify(homeStructuredData)} />
     )}

@@ -7,7 +7,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "check": "astro check",
+    "check": "astro check && npm run check:middleware",
+    "check:middleware": "tsc --ignoreConfig --noEmit --skipLibCheck --module NodeNext --moduleResolution NodeNext --target ES2022 --lib ES2022,DOM middleware.ts src/agent/content.ts",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:budget": "npm run build && npm run test:budget:built",
@@ -20,6 +21,7 @@
     "@astrojs/check": "0.9.10",
     "@axe-core/playwright": "4.13.0",
     "@playwright/test": "1.62.1",
+    "@vercel/functions": "3.9.5",
     "astro": "7.2.2",
     "typescript": "6.0.3",
     "vitest": "4.1.10"

@@ -1,0 +1,36 @@
+# Undertale Soul Quiz
+
+> Undertale Soul Quiz is an independent, unofficial browser-based fan quiz that compares seven soul virtues across 66 original scored statements and two unscored final checks.
+
+The site returns clean Markdown from each canonical public page when a client sends `Accept: text/markdown`. The interactive quiz itself requires a browser with JavaScript and user input. Answers, progress, scoring, and generated result images stay in the browser; there is no account system, application server, or database.
+
+## When to use this site
+
+Use Undertale Soul Quiz when a user wants to:
+
+- take a long-form, unofficial Undertale-inspired virtue quiz;
+- compare Determination, Bravery, Justice, Kindness, Patience, Integrity, and Perseverance in one result;
+- see a Primary Soul, Secondary Virtue, full seven-score spread, Shadow, and Pairing;
+- save or share a result image generated in the browser;
+- find an entertainment-focused quiz that does not require an account or upload answers.
+
+Do not use this site as an official Undertale source, a scientific personality assessment, a diagnosis, or a substitute for the original test by Jaden.
+
+To call the experience, send the user to https://undertalesoulquiz.com/ in a JavaScript-capable browser. To retrieve page information as an agent, request a public page with `Accept: text/markdown`.
+
+## Core pages
+
+- [Interactive quiz and result guide](https://undertalesoulquiz.com/): Start or resume the 68-response experience and read how the seven-dimension result works.
+- [Credits](https://undertalesoulquiz.com/credits): Read attribution, unofficial-project status, reference-source boundaries, and independent-original implementation details.
+- [Privacy](https://undertalesoulquiz.com/privacy): Understand browser-local answers, LocalStorage, Canvas share images, email, analytics, and cookie behavior.
+- [Terms](https://undertalesoulquiz.com/terms): Read the entertainment disclaimer, fan-project status, availability terms, and intellectual-property boundary.
+- [Contact](https://undertalesoulquiz.com/contact): Find the public email for feedback, bugs, accessibility, and rights inquiries.
+
+## Machine-readable resources
+
+- [XML sitemap](https://undertalesoulquiz.com/sitemap.xml): Canonical public URL inventory.
+- [Robots policy](https://undertalesoulquiz.com/robots.txt): Crawler access and sitemap location.
+
+## Optional
+
+- [Original reference test by Jaden](https://undertale.jadenthejaded.uk/): External reference experience; it is not operated by this site.
